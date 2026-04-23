@@ -1,12 +1,21 @@
-import { Stack } from 'expo-router';
+import { Drawer } from 'expo-router/drawer'; // On utilise le Drawer d'expo-router
 import '../global.css';
-import { View, Text } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function RootLayout() {
   return (
-    <Stack>
-      {/* On masque le header pour tout le groupe (tabs) */}
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    // Obligatoire pour le Drawer
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Drawer>
+        <Drawer.Screen
+          name="(tabs)"
+          options={{
+            drawerLabel: 'Accueil',
+            title: 'Mon App',
+            headerShown: false, // On le cache ici car les Tabs ont leur propre header
+          }}
+        />
+      </Drawer>
+    </GestureHandlerRootView>
   );
 }
