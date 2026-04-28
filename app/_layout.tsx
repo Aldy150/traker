@@ -1,18 +1,43 @@
-import { Drawer } from 'expo-router/drawer'; // On utilise le Drawer d'expo-router
-import '../global.css';
+import { Drawer } from 'expo-router/drawer';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { TouchableOpacity, Alert, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import '../global.css';
+
 
 export default function RootLayout() {
   return (
-    // Obligatoire pour le Drawer
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Drawer>
+      <Drawer 
+        screenOptions={{ 
+         // headerTintColor: '#002366',
+         // headerTitleAlign: 'center', // Optionnel : centre le titre si tu en mets un
+        }}
+      >
         <Drawer.Screen
           name="(tabs)"
           options={{
             drawerLabel: 'Accueil',
-            title: 'Mon App',
-            headerShown: false, // On le cache ici car les Tabs ont leur propre header
+            headerTitle: '',
+            
+            // TOUT doit être dans cet objet options
+            headerRight: () => (
+              <TouchableOpacity 
+               // onPress={() => Alert.alert("Profil", "Accès aux paramètres")}
+                style={{ marginRight: 15 }}
+              >
+                <Ionicons name="notifications-outline" size={28} color="#002366" />
+              </TouchableOpacity>
+            ),
+          }}
+        />
+        
+        {/* Exemple d'un autre écran dans le menu latéral */}
+        <Drawer.Screen
+          name="settings" 
+          options={{
+            drawerLabel: 'Paramètres',
+            title: 'Configuration',
           }}
         />
       </Drawer>
