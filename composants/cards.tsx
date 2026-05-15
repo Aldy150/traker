@@ -1,6 +1,5 @@
-import { Text, View, DimensionValue, ScrollView, Pressable } from 'react-native';
+import { Text, View, DimensionValue, Pressable } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import "../global.css";
 
 interface CardProps {
   title?: string;
@@ -10,42 +9,43 @@ interface CardProps {
   height?: DimensionValue;
   backgroundColor?: string;
   textColor?: string;
-  iconBackgroundColor?: string;
-  onPress?: () => void;
+  titleSize?: number;
+  valueSize?: number;
 }
 
 export default function Cards({
-  title = "Titre",
-  value = "Valeur",
-  //iconName = "analytics-outline",
-  width = "48%", // Souvent mieux pour des grilles
-  height = 120,
-  backgroundColor = "#fff",
-  //textColor = "#333",
- // iconBackgroundColor = "#f3f4f6",
-  onPress
+  title, value, iconName, width = "100%", height, 
+  backgroundColor = "#fff", textColor = "#1e293b", 
+  titleSize = 14, valueSize = 24 
 }: CardProps) {
   return (
     <Pressable 
-      onPress={onPress}
-      style={{ width, height, backgroundColor, borderRadius: 16 }}
-      className="p-4 shadow-sm mb-4"
+      style={{ 
+        width, height, backgroundColor, 
+        borderRadius: 24, // Bords très arrondis = moderne
+        padding: 20,
+        marginBottom: 16,
+        // Ombre style iOS/Android subtile
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
+        elevation: 2, 
+      }}
     >
-      {/* Section Icône */}
-      {
-        /*
-      <View 
-        style={{ backgroundColor: iconBackgroundColor }} 
-        className="w-10 h-10 rounded-full items-center justify-center mb-2"
-      >
-        <Ionicons name={iconName} size={20} color={textColor} />
-      </View>
-      */
-      }
-      {/* Section Texte */}
-      <View className='p-5'>
-        <Text className="text-white text-2xl font-medium">{title}</Text>
-        <Text className="text-2xl text-white font-bold">
+      <View style={{ flex: 1, justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Text style={{ color: textColor, fontSize: titleSize, fontWeight: '600', opacity: 0.7 }}>
+            {title}
+          </Text>
+          {iconName && (
+            <View style={{ backgroundColor: 'rgba(255,255,255,0.2)', padding: 6, borderRadius: 12 }}>
+                <Ionicons name={iconName} size={18} color={textColor} />
+            </View>
+          )}
+        </View>
+        
+        <Text style={{ color: textColor, fontSize: valueSize, fontWeight: '800', letterSpacing: -0.5 }}>
           {value}
         </Text>
       </View>
